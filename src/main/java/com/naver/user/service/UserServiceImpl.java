@@ -24,4 +24,15 @@ public class UserServiceImpl implements UserService {
         }
         return false;
     }
+
+    @Override
+    public boolean signup(String id, String pw) {
+        // 중복 체크 로직
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getId().equals(id))
+                return false;
+        }
+        // 없으면 add
+        return users.add(new User(id,pw));
+    }
 }
