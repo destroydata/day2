@@ -16,9 +16,9 @@ public class UserDao {
         String sql = "select id from users where username = ? and password = ?";
         return jdbcTemplate.queryForObject(sql, Integer.class, id, pw);
     }
-    public Integer signup(String id, String pw){
-        String sql = "select id from users where username = ? and password = ?";
-        return jdbcTemplate.update(sql, id, pw);
+    public Integer signup(String id, String pw, String name){
+        String sql = "insert into users(username, password, name) values (?,?,?)";
+        return jdbcTemplate.update(sql, id, pw, name);
     }
 
 

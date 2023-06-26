@@ -52,9 +52,10 @@ public class UserController {
     public ModelAndView signup(HttpServletRequest res
             , @RequestParam("id") String id
             , @RequestParam("pw") String pw
+            , @RequestParam("name") String name
             , ModelAndView mav
     ){
-        if(userService.signup(id, pw)){
+        if(userService.signup(id, pw, name)){
             mav.setViewName("redirect:/user/login");
         }else {
             mav.setViewName("redirect:/user/signup");
