@@ -7,13 +7,13 @@ import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 
-@Component
+//@Component
 public class JdbcConfig {
     private final String url = "jdbc:mysql://localhost:3306/todos" +
             "?serverTimezone=Asia/Seoul&characterEncoding=UTF-8";
     private final String username = "root";
     private final String password = "1q2w3e4r!!";
-    @Bean
+//    @Bean
     public DataSource dataSource(){
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");

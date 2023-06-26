@@ -20,7 +20,8 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
     @Override
     public boolean login(String id, String pw) {
-        Integer loginedId = userDao.login(id, pw);
+        User loginedId = userDao.login(id, pw);
+        System.out.println(loginedId);
         if(loginedId==null){
             return false;
         }
