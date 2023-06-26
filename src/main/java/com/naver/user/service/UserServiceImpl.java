@@ -2,6 +2,8 @@ package com.naver.user.service;
 
 import com.naver.user.dao.UserDao;
 import com.naver.user.domain.dto.User;
+import com.naver.user.domain.request.LoginRequest;
+import com.naver.user.domain.request.SignupRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,26 +21,17 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
     @Override
-    public boolean login(String id, String pw) {
-        User loginedId = userDao.login(id, pw);
-        System.out.println(loginedId);
-        if(loginedId==null){
-            return false;
+    public User login(LoginRequest request) {
+        try {
+            return userDao.login(request.getId(), request.getPassword());
+        }catch (Exception e){
+            return null;
         }
-        return true;
+
     }
 
     @Override
-    public boolean signup(String id, String pw, String name) {
-        // 중복 체크 로직
-//        for (int i = 0; i < users.size(); i++) {
-//            if (users.get(i).getId().equals(id))
-//                return false;
-//        }
-//        // 없으면 add
-//        return users.add(new User(id,pw));
-
-        return userDao.signup(id, pw, name) != 0;
-
+    public boolean signup(SignupRequest request) {
+        return userDao.signup(request) != 0;
     }
 }

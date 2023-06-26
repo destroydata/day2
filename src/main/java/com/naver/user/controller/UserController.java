@@ -1,6 +1,7 @@
 package com.naver.user.controller;
-
 import com.naver.user.domain.dto.User;
+import com.naver.user.domain.request.LoginRequest;
+import com.naver.user.domain.request.SignupRequest;
 import com.naver.user.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -27,35 +28,36 @@ public class UserController {
         return "/user/signup";
     }
     @PostMapping("/login")
-    public ModelAndView postLogin(HttpServletRequest res
-            , @RequestParam("id") String id
-            , @RequestParam("pw") String pw
-            , @RequestParam(value = "idSave", required = false) Boolean idSave
-            , @ModelAttribute User user
+    public ModelAndView postLogin(
+//            HttpServletRequest res
+//            , @RequestParam("id") String id
+//            , @RequestParam("pw") String pw
+//            , @RequestParam(value = "idSave", required = false) Boolean idSave
+             @ModelAttribute LoginRequest request
             , ModelAndView mav
             , HttpSession session
           ){
-        if(idSave==null) idSave = false;
-        if(userService.login(id, pw)){
-            session.setAttribute("id", id);
+//        if(idSave==null) idSave = false;
+        User login = userService.login(request);
+        if(login != null){
+            session.setAttribute("id", login.getId());
+            session.setAttribute("name", login.getName());
             mav.setViewName("redirect:/main");
         }else {
             mav.setViewName("redirect:/user/login");
-            if(idSave)
-                mav.addObject("id",id);
+//            if(idSave)
+//                mav.addObject("id",id);
         }
 
         return mav;
     }
 
     @PostMapping("/signup")
-    public ModelAndView signup(HttpServletRequest res
-            , @RequestParam("id") String id
-            , @RequestParam("pw") String pw
-            , @RequestParam("name") String name
+    public ModelAndView signup(
+            @ModelAttribute SignupRequest request
             , ModelAndView mav
     ){
-        if(userService.signup(id, pw, name)){
+        if(userService.signup(request)){
             mav.setViewName("redirect:/user/login");
         }else {
             mav.setViewName("redirect:/user/signup");

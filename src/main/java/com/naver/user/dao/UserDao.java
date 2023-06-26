@@ -1,6 +1,7 @@
 package com.naver.user.dao;
 
 import com.naver.user.domain.dto.User;
+import com.naver.user.domain.request.SignupRequest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
@@ -19,7 +20,7 @@ public class UserDao {
     public User login(String id, String pw){
         String sql = "select id, username, password, name, create_at as createAt" +
                 " from users where username = ? and password = ?";
-        jdbcTemplate.queryForObject(sql, getUserRowMapper(), id, pw);
+//        jdbcTemplate.queryForObject(sql, getUserRowMapper(), id, pw);
         return jdbcTemplate.queryForObject(sql, new UserRowMapper(), id, pw);
     }
 
@@ -33,9 +34,10 @@ public class UserDao {
         };
     }
 
-    public Integer signup(String id, String pw, String name){
+    public Integer signup(SignupRequest request){
         String sql = "insert into users(username, password, name) values (?,?,?)";
-        return jdbcTemplate.update(sql, id, pw, name);
+        return jdbcTemplate.update(sql
+                , request.getId(), request.getPw(), request.getName());
     }
 
 

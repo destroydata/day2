@@ -1,6 +1,10 @@
 package com.naver.user.service;
 
+import com.naver.user.domain.dto.User;
+import com.naver.user.domain.request.LoginRequest;
+import com.naver.user.domain.request.SignupRequest;
+
 public interface UserService {
-    boolean login(String id, String pw);
-    boolean signup(String id, String pw, String name);
+    User login(LoginRequest request);
+    boolean signup(SignupRequest request);
 }
