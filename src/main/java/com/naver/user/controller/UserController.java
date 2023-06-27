@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+
     private final UserService userService;
 
     public UserController(UserService userService) {
@@ -29,10 +30,6 @@ public class UserController {
     }
     @PostMapping("/login")
     public ModelAndView postLogin(
-//            HttpServletRequest res
-//            , @RequestParam("id") String id
-//            , @RequestParam("pw") String pw
-//            , @RequestParam(value = "idSave", required = false) Boolean idSave
              @ModelAttribute LoginRequest request
             , ModelAndView mav
             , HttpSession session
@@ -40,6 +37,7 @@ public class UserController {
 //        if(idSave==null) idSave = false;
         User login = userService.login(request);
         if(login != null){
+//            mav.addObject()
             session.setAttribute("id", login.getId());
             session.setAttribute("name", login.getName());
             mav.setViewName("redirect:/main");
