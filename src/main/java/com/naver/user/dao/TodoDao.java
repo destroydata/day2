@@ -47,4 +47,16 @@ public class TodoDao {
                 );
     }
 
+    public int insert(Integer uid, String content){
+        String sql = "insert into todos(user_id, content, checked) " +
+                "values(?, ?, false)";
+        // 컨텐츠가 필요, 유저 id가 필요하다.
+        try {
+            return jdbcTemplate.update(sql,uid,content);
+        }catch (Exception e) {
+            return 0;
+        }
+
+    }
+
 }

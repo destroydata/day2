@@ -17,4 +17,10 @@ public class TodoService {
     public List<TodoJoinUser> findAll(){
         return todoDao.findAll();
     }
+
+    public int insert(Integer uid, String content){
+        //Dao 에 있는 기능을 끌어올 예정.
+        return todoDao.insert(uid,content);
+
+    }
 }
