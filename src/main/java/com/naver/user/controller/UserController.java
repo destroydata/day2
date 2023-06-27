@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -39,7 +38,7 @@ public class UserController {
         if(login != null){
 //            mav.addObject()
             session.setAttribute("id", login.getId());
-            session.setAttribute("name", login.getName());
+            session.setAttribute("uname", login.getName());
             mav.setViewName("redirect:/main");
         }else {
             mav.setViewName("redirect:/user/login");
