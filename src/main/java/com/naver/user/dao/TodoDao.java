@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -43,7 +44,8 @@ public class TodoDao {
                         rs.getString("create_at"),
                         rs.getBoolean("checked"),
                         rs.getString("name"),
-                        rs.getInt("uid")
+                        rs.getInt("uid"),
+                        null
                 );
     }
 
@@ -58,5 +60,24 @@ public class TodoDao {
         }
 
     }
+    public List<TodoJoinUser> findByKeyword(String keyword){
+        String sql = "select\n" +
+                "    t.id,\n" +
+                "    t.create_at ,\n" +
+                "    t.content,\n" +
+                "    t.checked,\n" +
+                "    u.name,\n" +
+                "    u.id uid\n" +
+                "from todos.todos as t\n" +
+                "inner join todos.users as u\n" +
+                "    on t.user_id = u.id " +
+                "where content like ?";
+        List<TodoJoinUser> todoJoinUsers = jdbcTemplate.query(
+                sql
+                , getTodoJoinUserRowMapper()
+                , "%" + keyword + "%"
+        );
 
+        return todoJoinUsers;
+    }
 }
