@@ -12,9 +12,9 @@
             u.name,
             u.id uid,
             t.heart
-            from todos as t
-            inner join users as u
-            on t.user_id = u.id
+        from todos as t
+        inner join users as u
+        on t.user_id = u.id
     </select>
     <select id="findByKeyword" resultType="TodoJoinUser" parameterType="String">
         select

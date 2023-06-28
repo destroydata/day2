@@ -10,7 +10,6 @@ import java.util.List;
 @Repository
 public class TodoMapper {
     private final SqlSessionTemplate sessionTemplate;
-
     public TodoMapper(SqlSessionTemplate sessionTemplate) {
         this.sessionTemplate = sessionTemplate;
     }

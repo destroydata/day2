@@ -16,6 +16,13 @@
             <td>${todo.createAt}</td>
             <td>${todo.name}</td>
             <td>${todo.checked}</td>
+            <c:set var="id" value="${sessionScope.get(\"id\")}"/>
+            <c:if test="${id eq todo.uid}">
+                <td>
+                    <a href="/todo/update?todoid=${todo.id}">수정
+                    </a>
+                </td>
+            </c:if>
         </tr>
     </c:forEach>
 <%--<%--%>

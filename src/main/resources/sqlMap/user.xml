@@ -9,4 +9,8 @@
         from users
         where username = #{id} and password = #{password}
     </select>
+    <insert id="signup" useGeneratedKeys="true" keyProperty="id">
+        insert into users (username, password, name)
+        values (#{id}, #{pw}, #{name})
+    </insert>
 </mapper>
