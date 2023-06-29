@@ -14,7 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class MainController {
@@ -22,6 +24,17 @@ public class MainController {
 
     public MainController(TodoService todoService) {
         this.todoService = todoService;
+    }
+    @GetMapping("/map")
+    public ModelAndView test(ModelAndView modelAndView){
+        Map<String,String> map = new HashMap<>();
+        map.put("a", "apple");
+        map.put("b", "banana");
+        modelAndView.addObject("keys",map.keySet());
+        modelAndView.addObject("map",map);
+        modelAndView.setViewName("index");
+        return modelAndView;
+
     }
 
     @GetMapping("/main")
@@ -51,8 +64,14 @@ public class MainController {
         Integer id = (Integer) session.getAttribute("id");
         // TODO insert 서비스 에다가 만들거다.
 
-        if(id != null && todoService.insert(id,content) != 0)
+        if(id != null) {
+            try {
+                todoService.insert(id, content);
+            } catch (Exception e) {
+//                throw new RuntimeException(e);
+            }
             mav.setViewName("redirect:/main");
+        }
         else {
 //            mav.setViewName("redirect:/main?err=not_insert");
             mav.setViewName("redirect:/main");
