@@ -15,6 +15,7 @@
         from todos as t
         inner join users as u
         on t.user_id = u.id
+
     </select>
     <select id="findByKeyword" resultType="TodoJoinUser" parameterType="String">
         select
@@ -28,7 +29,15 @@
         from todos as t
         inner join users as u
         on t.user_id = u.id
-        where content like #{keyword}
+
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="keyword != null">
+                content like #{keyword}
+            </if>
+            <if test="uid != null">
+                u.id = #{uid}
+            </if>
+        </trim>
     </select>
 
     <update id="update" >

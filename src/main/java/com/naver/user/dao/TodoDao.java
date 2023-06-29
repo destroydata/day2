@@ -70,8 +70,10 @@ public class TodoDao {
                 "    u.id uid\n" +
                 "from todos.todos as t\n" +
                 "inner join todos.users as u\n" +
-                "    on t.user_id = u.id " +
-                "where content like ?";
+                "    on t.user_id = u.id ";
+        if(keyword!= null && !keyword.equals("")) {
+            sql += "where content like ?";
+        }
         List<TodoJoinUser> todoJoinUsers = jdbcTemplate.query(
                 sql
                 , getTodoJoinUserRowMapper()

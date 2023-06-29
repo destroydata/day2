@@ -29,8 +29,8 @@ public class TodoService {
 
     }
     public List<TodoJoinUser> findByKeyword(String keyword){
-
-        return todoMapper.findByKeyword("%"+keyword+"%");
+        if(keyword != null) keyword = "%"+keyword+"%";
+        return todoMapper.findByKeyword(keyword);
 //        todoDao.findByKeyword(keyword);
     }
 

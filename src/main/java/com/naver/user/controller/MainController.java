@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -29,13 +30,15 @@ public class MainController {
     ){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("/todos/main");
-        if(keyword!= null && !keyword.equals("")){
-            List<TodoJoinUser> byKeyword = todoService.findByKeyword(keyword);
-            modelAndView.addObject("todolist", byKeyword);
-        }else{
-            //         투두 리스트 가져다 줘야하고
-            modelAndView.addObject("todolist", todoService.findAll());
-        }
+//        if(keyword!= null && !keyword.equals("")){
+//            List<TodoJoinUser> byKeyword = todoService.findByKeyword(keyword);
+//            modelAndView.addObject("todolist", byKeyword);
+//        }else{
+//            //         투두 리스트 가져다 줘야하고
+//            modelAndView.addObject("todolist", todoService.findAll());
+//        }
+        List<TodoJoinUser> byKeyword = todoService.findByKeyword(keyword);
+        modelAndView.addObject("todolist", byKeyword);
         return modelAndView;
     }
 
