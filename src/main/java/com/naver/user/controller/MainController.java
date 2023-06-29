@@ -1,10 +1,13 @@
 package com.naver.user.controller;
 
 
+import com.naver.user.domain.dto.Update;
 import com.naver.user.domain.entity.TodoJoinUser;
+import com.naver.user.domain.request.UpdateRequest;
 import com.naver.user.service.TodoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -52,6 +55,37 @@ public class MainController {
             mav.setViewName("redirect:/main");
             mav.addObject("err", "not_insert");
         }
+        return mav;
+
+    }
+    @GetMapping("/todo/update")
+    public ModelAndView showUpdatePage(
+            @RequestParam("todoid") String id,
+            ModelAndView mav){
+
+        mav.addObject("todoid",id);
+        mav.setViewName("/todos/todoupdate");
+
+        return  mav;
+    }
+
+    @PostMapping("/todo/update")
+    public ModelAndView updateData(
+            @ModelAttribute UpdateRequest updateRequest,
+            HttpSession session,
+            ModelAndView mav){
+
+        int uid = (int) session.getAttribute("id");
+        Update dto = updateRequest.toDto(uid);
+//        Update update = new Update(
+//                updateRequest.getId(),
+//                uid,
+//                updateRequest.getContent());
+
+        todoService.update(dto);
+
+        mav.setViewName("redirect:/main");
+
         return mav;
 
     }
