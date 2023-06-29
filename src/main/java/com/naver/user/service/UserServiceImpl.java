@@ -3,6 +3,7 @@ package com.naver.user.service;
 import com.naver.user.dao.UserDao;
 import com.naver.user.dao.UserMapper;
 import com.naver.user.dao.UserMapper2;
+import com.naver.user.domain.dto.UserUpdate;
 import com.naver.user.domain.entity.User;
 import com.naver.user.domain.request.LoginRequest;
 import com.naver.user.domain.request.SignupRequest;
@@ -37,5 +38,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean signup(SignupRequest request) {
         return userMapper.signup(request) != 0;
+    }
+
+    @Override
+    public int update(UserUpdate update) {
+        return userMapper.update(update);
     }
 }
