@@ -2,6 +2,7 @@ package com.naver.user.service;
 
 import com.naver.user.dao.UserDao;
 import com.naver.user.dao.UserMapper;
+import com.naver.user.dao.UserMapper2;
 import com.naver.user.domain.entity.User;
 import com.naver.user.domain.request.LoginRequest;
 import com.naver.user.domain.request.SignupRequest;
@@ -22,7 +23,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
     @Autowired
-    private UserMapper userMapper;
+    private UserMapper2 userMapper;
     @Override
     public User login(LoginRequest request) {
         try {

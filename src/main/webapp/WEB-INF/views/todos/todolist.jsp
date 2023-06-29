@@ -16,36 +16,12 @@
             <td>${todo.createAt}</td>
             <td>${todo.name}</td>
             <td>${todo.checked}</td>
-            <c:set var="id" value="${sessionScope.get(\"id\")}"/>
             <c:if test="${id eq todo.uid}">
                 <td>
-                    <a href="/todo/update?todoid=${todo.id}">수정
-                    </a>
+                    <a href="/todo/update?todoid=${todo.id}">수정</a>
                 </td>
             </c:if>
         </tr>
     </c:forEach>
-<%--<%--%>
-<%--    List<TodoJoinUser> todos = (List<TodoJoinUser>)request.getAttribute("todolist");--%>
-<%--    if(todos!=null && todos.size() != 0){--%>
-<%--        for (TodoJoinUser todo :todos) {%>--%>
-<%--            <tr>--%>
-<%--                <td><%= todo.getId()%></td>--%>
-<%--                <td><%= todo.getContent()%></td>--%>
-<%--                <td><%= todo.getCreateAt()%></td>--%>
-<%--                <td><%= todo.getName()%></td>--%>
-<%--                <td><%= todo.isChecked()%></td>--%>
-<%--                <%--%>
-<%--                    if(session.getAttribute("uid") == todo.getUid()){--%>
-<%--                %>--%>
-<%--                <td>--%>
-<%--                    <a href="/todoupdate?todoid=<%= todo.getId()%>">수정</a>--%>
-<%--                </td><%--%>
-<%--                    }--%>
-<%--                %>--%>
-<%--            </tr>--%>
-<%--        <%--%>
-<%--        }--%>
-<%--    }--%>
-<%--    %>--%>
+
 </table>
