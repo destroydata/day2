@@ -43,10 +43,11 @@ public class TodoService {
         return todoMapper.update(update);
     }
 
-    public void clickHeart(HeartSupport heartSupport){
+    public void clickHeart(HeartSupport heartSupport) throws Exception {
         int result = heartMapper.findById(heartSupport);
         heartSupport.setResult(result);
         heartMapper.updateHearts(heartSupport);
+        if(heartSupport.getTid() == 3) throw new Exception("");
         todoMapper.updateHearts(heartSupport);
     }
 

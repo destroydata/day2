@@ -131,7 +131,11 @@ public class MainController {
         HeartSupport heartSupport = new HeartSupport(
                 (Integer) session.getAttribute("id"), todoid, null
         );
-        todoService.clickHeart(heartSupport);
+        try {
+            todoService.clickHeart(heartSupport);
+        } catch (Exception e) {
+
+        }
         mav.setViewName("redirect:/main");
         return mav;
 
