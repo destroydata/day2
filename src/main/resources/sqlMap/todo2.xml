@@ -45,4 +45,17 @@
         set content = #{content}
         where id = #{id} and user_id = #{uid}
     </update>
+    <update id="updateHearts">
+        update todos
+        set heart =
+        <choose>
+            <when test="result == 0">
+                heart + 1
+            </when>
+            <otherwise>
+                heart - 1
+            </otherwise>
+        </choose>
+        where id = #{tid}
+    </update>
 </mapper>

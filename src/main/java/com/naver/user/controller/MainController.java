@@ -1,8 +1,11 @@
 package com.naver.user.controller;
 
 
+import com.naver.user.domain.dto.HeartSupport;
 import com.naver.user.domain.dto.Update;
+import com.naver.user.domain.entity.NewTodoJoinUser;
 import com.naver.user.domain.entity.TodoJoinUser;
+import com.naver.user.domain.request.FindTodoRequest;
 import com.naver.user.domain.request.UpdateRequest;
 import com.naver.user.service.TodoService;
 import org.springframework.stereotype.Controller;
@@ -111,4 +114,30 @@ public class MainController {
         return mav;
 
     }
+
+    @PostMapping("/todo/like")
+    public ModelAndView likeUpdate(
+            @RequestParam("todoid") Integer todoid,
+            HttpSession session,
+            ModelAndView mav){
+
+//        1 uid  2 tid  == > heart 테이블의 행 갯수 == 좋아요 갯수
+//        FindTodoRequest request =new FindTodoRequest((Integer) session.getAttribute("id"), todoid, 0);
+//        List<NewTodoJoinUser> result = todoService.findAllHearts();
+
+//        tid 해당 게시글에 유저 id 있는지 조회
+//        있으면 -1 없으면 +1
+//        FindTodoRequest newRequest = new FindTodoRequest()
+        HeartSupport heartSupport = new HeartSupport(
+                (Integer) session.getAttribute("id"), todoid, null
+        );
+        todoService.clickHeart(heartSupport);
+        mav.setViewName("redirect:/main");
+        return mav;
+
+    }
+
+
+
+
 }
